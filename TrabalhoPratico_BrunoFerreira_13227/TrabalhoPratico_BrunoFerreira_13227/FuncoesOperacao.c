@@ -176,6 +176,10 @@ int TempoMaximoOperacao(Maquina* listaMaquinas) {
 
 /*---------Calcula o menor tempo de um job--------------*/
 //Soma o menor tempo para fazer um job, percorrendo a lista de maquinas de cada operacao e analisa que maquina em cada operacao o faz em menor tempo
+/**
+* Update 3/04/2022
+* Já funciona e retorna a soma de menores valores de uma operacao
+*/
 int SomaMenorValorOperacoes(Operacao* headerListaOperacoes) {
 	if (headerListaOperacoes == NULL) return NULL;
 
@@ -183,7 +187,7 @@ int SomaMenorValorOperacoes(Operacao* headerListaOperacoes) {
 	Operacao* aux = headerListaOperacoes;
 
 	while (aux != NULL) {
-		soma += TempoMinimoOperacao(headerListaOperacoes->listaMaquinas);
+		soma += TempoMinimoOperacao(aux->listaMaquinas);
 		aux = aux->next;
 	}
 	return soma;
@@ -191,6 +195,11 @@ int SomaMenorValorOperacoes(Operacao* headerListaOperacoes) {
 
 /*---------Calcula o maior tempo de um job--------------*/
 //Soma o maior tempo para fazer um job, percorrendo a lista de maquinas de cada operacao e analisa que maquina em cada operacao o faz em maior tempo
+/**
+* Update 3/04/2022
+* Já funciona e retorna a soma de maiores valores de uma operacao
+*/
+
 int SomaMaiorValorOperacoes(Operacao* headerListaOperacoes) {
 	if (headerListaOperacoes == NULL) return NULL;
 
@@ -198,29 +207,39 @@ int SomaMaiorValorOperacoes(Operacao* headerListaOperacoes) {
 	Operacao* aux = headerListaOperacoes;
 
 	while (aux != NULL) {
-		soma += TempoMaximoOperacao(headerListaOperacoes->listaMaquinas);
+		//soma += TempoMaximoOperacao(headerListaOperacoes->listaMaquinas);   
+		soma += TempoMaximoOperacao(aux->listaMaquinas);
 		aux = aux->next;
 	}
+
 	return soma;
 }
 
 /*---------Calcula a media de tempo de uma operacao tendo em conta todas as maquinas possiveis--------------*/
+/**
+* Update 3 / 04 / 2022
+* média já retorna a média direito e a funcionar
+*/
 float MediaTempoOperacao(Operacao* listaOperacoesHeader, int id)
 {
 	if (listaOperacoesHeader == NULL) return -1;
 
 	Operacao* aux = listaOperacoesHeader;
-	Maquina* listaMaquinaAux = aux->listaMaquinas;
+	//Maquina* listaMaquinaAux = aux->listaMaquinas;
 	Operacao* auxOP = ProcuraOperacao(aux, id);
+	Maquina* listaMaquinaAux = auxOP->listaMaquinas;
 
 	float soma = 0;
 	float count = ContarMaquinasOperacao(auxOP);
 
 	while (listaMaquinaAux != NULL)
 	{
-		listaMaquinaAux->tempoTarefa += soma;
-		listaMaquinaAux->next;
+		//listaMaquinaAux->tempoTarefa += soma;  
+		soma += listaMaquinaAux->tempoTarefa;
+		//listaMaquinaAux->next;
+		listaMaquinaAux=listaMaquinaAux->next;
 	}
+
 	return(soma / count);
 	
 }

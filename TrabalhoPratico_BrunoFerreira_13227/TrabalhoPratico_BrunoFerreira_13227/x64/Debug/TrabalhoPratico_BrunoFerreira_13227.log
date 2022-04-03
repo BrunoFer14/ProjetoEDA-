@@ -1,2 +1,5 @@
-﻿  main.c
-  TrabalhoPratico_BrunoFerreira_13227.vcxproj -> E:\TrabalhoPratico_BrunoFerreira_13227\x64\Debug\TrabalhoPratico_BrunoFerreira_13227.exe
+﻿  FuncoesOperacao.c
+C:\Users\bruno\OneDrive\Área de Trabalho\Bruno Ferreira_ 13227_Trabalho Pratico Fase 1\TrabalhoPratico_BrunoFerreira_13227\TrabalhoPratico_BrunoFerreira_13227\FuncoesOperacao.c(184,47): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\bruno\OneDrive\Área de Trabalho\Bruno Ferreira_ 13227_Trabalho Pratico Fase 1\TrabalhoPratico_BrunoFerreira_13227\TrabalhoPratico_BrunoFerreira_13227\FuncoesOperacao.c(204,47): warning C4047: 'return': 'int' differs in levels of indirection from 'void *'
+C:\Users\bruno\OneDrive\Área de Trabalho\Bruno Ferreira_ 13227_Trabalho Pratico Fase 1\TrabalhoPratico_BrunoFerreira_13227\TrabalhoPratico_BrunoFerreira_13227\FuncoesOperacao.c(233,38): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  TrabalhoPratico_BrunoFerreira_13227.vcxproj -> C:\Users\bruno\OneDrive\Área de Trabalho\Bruno Ferreira_ 13227_Trabalho Pratico Fase 1\TrabalhoPratico_BrunoFerreira_13227\x64\Debug\TrabalhoPratico_BrunoFerreira_13227.exe
