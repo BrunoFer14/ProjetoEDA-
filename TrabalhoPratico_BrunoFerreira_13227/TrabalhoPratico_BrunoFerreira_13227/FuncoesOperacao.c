@@ -4,7 +4,7 @@
 * email: a13227@alunos.ipca.pt
 * Curso: Engenharia em desenvolvimento jogos digitais
 * Cadeira: Estruturas de dados Avançados
-* Descrição:Trabalho prático Fase 1
+* Descrição:Trabalho prático Fase 2
 */
 
 #include"Dados.h"
@@ -12,8 +12,13 @@
 
 #pragma region FuncoesGestaoListasOperacoes
 
-/*---------Criar uma Operacao--------------*/
-//Cria uma operação com um id
+/**
+ * .
+ * Cria uma nova operacao
+ * \param id
+ * \return retorna operacao criada
+ */
+
 Operacao* CriarOperacao(int id){
 
 	Operacao* novaOperacao = (Operacao*)malloc(sizeof(Operacao));
@@ -26,7 +31,13 @@ Operacao* CriarOperacao(int id){
 	return novaOperacao;
 }
 
-/*---------Inserir uma operaçao numa lista por ordem do seu id--------------*/
+/**
+ * Insere Operacao na lista ordenadamente.
+ * 
+ * \param headerListaOperacao
+ * \param novaOperacao
+ * \return header da lista Operacao
+ */
 Operacao* InserirOperacaoListaOrdenadamente(Operacao* headerListaOperacao, Operacao* novaOperacao) {
 	
 	if (ExisteOperacao(headerListaOperacao, novaOperacao->id)) return headerListaOperacao;
@@ -58,8 +69,14 @@ Operacao* InserirOperacaoListaOrdenadamente(Operacao* headerListaOperacao, Opera
 	return headerListaOperacao;
 }
 
-/*---------Verificar se Operacao com o id x existe na Lista--------------*/
-// retorna true se operacao existir na lista, false se não existir na lista
+
+/**
+ * Verificar se Operacao com o id x existe na Lista.
+ * 
+ * \param headerListaOperacao
+ * \param id
+ * \return true se operacao existir na lista, false se não existir na lista
+ */
 bool ExisteOperacao(Operacao* headerListaOperacao, int id) {
 	if (headerListaOperacao == NULL) return false; 
 
@@ -74,8 +91,14 @@ bool ExisteOperacao(Operacao* headerListaOperacao, int id) {
 	return false;   // se não encontrar vai retornar falso
 }
 
-/*---------Remover Operação da lista--------------*/
-//remover a operação da lista pelo id 
+/**
+ * Remover Operação da lista pelo id.
+ * 
+ * \param headerListaOperacao
+ * \param idOperacaoRemover
+ * \return header lista operacao 
+ */
+
 Operacao* RemoverOperacao(Operacao* headerListaOperacao, int idOperacaoRemover) {
 
 	if (headerListaOperacao == NULL) return NULL;  // se a lista estiver vazia retorno NULL 
@@ -83,7 +106,9 @@ Operacao* RemoverOperacao(Operacao* headerListaOperacao, int idOperacaoRemover) 
 	if (headerListaOperacao->id == idOperacaoRemover) {
 		Operacao* aux = headerListaOperacao;
 		headerListaOperacao = headerListaOperacao->next;
+		free(aux->listaMaquinas);
 		free(aux);
+		
 	}
 	else {
 		Operacao* aux = headerListaOperacao;
@@ -96,14 +121,21 @@ Operacao* RemoverOperacao(Operacao* headerListaOperacao, int idOperacaoRemover) 
 		}
 		if (aux != NULL) {
 			auxAnterior->next = aux->next;
+			free(aux->listaMaquinas);
 			free(aux);
 		}
 	}
 	return headerListaOperacao;
 }
 
-/*---------Procurar Operação numa lista pelo id--------------*/
-// Se encontrar a operaçao devolvo a operaçao que estou à procura
+/**
+ * .
+ * Se encontrar a operaçao devolvo a operaçao que estou à procura
+ * \param headerListaOperacao
+ * \param id
+ * \return 
+ */
+
 Operacao* ProcuraOperacao(Operacao* headerListaOperacao, int id ) {
 	if (headerListaOperacao == NULL) return NULL;
 	else {
@@ -119,7 +151,14 @@ Operacao* ProcuraOperacao(Operacao* headerListaOperacao, int id ) {
 	}
 }
 
-/*---------Alterar id de uma operação --------------*/
+/**
+ * Alterar operacao pelo id recebido.
+ * 
+ * \param headerListaOperacao
+ * \param id
+ * \param novoID
+ * \return header da lista de operacoes
+ */
 Operacao* AlterarIdOperacao(Operacao* headerListaOperacao, int id, int novoID) {
 
 	Operacao* aux = ProcuraOperacao(headerListaOperacao, id);
@@ -132,10 +171,15 @@ Operacao* AlterarIdOperacao(Operacao* headerListaOperacao, int id, int novoID) {
 }
 #pragma endregion
 
+
 #pragma region CalculosOperacoes 
 
-/*---------Procura maquina mais rapida de uma operacao--------------*/
-//Encontra a maquina que demora menos unidades de tempo a fazer operacao x
+/**
+ * Encontra a maquina que demora menos unidades de tempo a fazer operacao x.
+ * 
+ * \param listaMaquinas
+ * \return menor tempo que operacao consegue ser feita
+ */
 int TempoMinimoOperacao(Maquina* listaMaquinas) {
     	
 	if (listaMaquinas == NULL)return -1;
@@ -154,8 +198,14 @@ int TempoMinimoOperacao(Maquina* listaMaquinas) {
 		return (menorTempo);
 }
 
-/*---------Procura maquina mais lenta de uma operacao--------------*/
-//Encontra a maquina que demora mais unidades de tempo a fazer operacao x
+
+
+/**
+ * Encontra a maquina que demora mais unidades de tempo a fazer operacao x.
+ * 
+ * \param listaMaquinas
+ * \return maior tempo 
+ */
 int TempoMaximoOperacao(Maquina* listaMaquinas) {
 
 	if (listaMaquinas == NULL)return -1;
@@ -174,12 +224,17 @@ int TempoMaximoOperacao(Maquina* listaMaquinas) {
 	return (maiorTempo);
 }
 
-/*---------Calcula o menor tempo de um job--------------*/
-//Soma o menor tempo para fazer um job, percorrendo a lista de maquinas de cada operacao e analisa que maquina em cada operacao o faz em menor tempo
-/**
+/*
 * Update 3/04/2022
 * Já funciona e retorna a soma de menores valores de uma operacao
 */
+
+/**
+ * Soma o menor tempo para fazer um job, percorrendo a lista de maquinas de cada operacao e analisa que maquina em cada operacao o faz em menor tempo.
+ * 
+ * \param headerListaOperacoes
+ * \return valor de quantas unidades de tempo um job consegue ser feito de maneira mais rapida
+ */
 int SomaMenorValorOperacoes(Operacao* headerListaOperacoes) {
 	if (headerListaOperacoes == NULL) return NULL;
 
@@ -193,13 +248,18 @@ int SomaMenorValorOperacoes(Operacao* headerListaOperacoes) {
 	return soma;
 }
 
-/*---------Calcula o maior tempo de um job--------------*/
-//Soma o maior tempo para fazer um job, percorrendo a lista de maquinas de cada operacao e analisa que maquina em cada operacao o faz em maior tempo
+
 /**
 * Update 3/04/2022
 * Já funciona e retorna a soma de maiores valores de uma operacao
 */
 
+/**
+ * Soma o maior tempo para fazer um job, percorrendo a lista de maquinas de cada operacao e analisa que maquina em cada operacao o faz em maior tempo.
+ * 
+ * \param headerListaOperacoes
+ * \return maior tempo de um job
+ */
 int SomaMaiorValorOperacoes(Operacao* headerListaOperacoes) {
 	if (headerListaOperacoes == NULL) return NULL;
 
@@ -215,11 +275,19 @@ int SomaMaiorValorOperacoes(Operacao* headerListaOperacoes) {
 	return soma;
 }
 
-/*---------Calcula a media de tempo de uma operacao tendo em conta todas as maquinas possiveis--------------*/
+
 /**
 * Update 3 / 04 / 2022
 * média já retorna a média direito e a funcionar
 */
+
+/**
+ * Calcula a media de tempo de uma operacao tendo em conta todas as maquinas possiveis.
+ * 
+ * \param listaOperacoesHeader
+ * \param id
+ * \return media de tempo de uma operacao
+ */
 float MediaTempoOperacao(Operacao* listaOperacoesHeader, int id)
 {
 	if (listaOperacoesHeader == NULL) return -1;
@@ -244,7 +312,12 @@ float MediaTempoOperacao(Operacao* listaOperacoesHeader, int id)
 	
 }
 
-/*---------Conta quantas maquinas disponiveis tem uma operacao--------------*/
+/**
+ * Conta quantas maquinas disponiveis tem uma operacao.
+ * 
+ * \param operacao
+ * \return numero da maquinas que uma operacao tem a seu dispor
+ */
 int ContarMaquinasOperacao(Operacao* operacao) {
 
 	int count = 0;
@@ -261,7 +334,11 @@ int ContarMaquinasOperacao(Operacao* operacao) {
 
 #pragma region MostrarNoEcra
 
-/*---------Mostra a lista de operacoes (1 job)--------------*/
+/**
+ * Mostra a lista de operacoes.
+ * 
+ * \param headerDaLista
+ */
 void MostrarListaOperacao(Operacao* headerDaLista) {
 
 	Operacao* aux = headerDaLista;
@@ -274,24 +351,38 @@ void MostrarListaOperacao(Operacao* headerDaLista) {
 	}
 }
 
-/*---------Mostra uma operacao x--------------*/
+/**
+ * Mostra uma operacao x.
+ * 
+ * \param operacao
+ */
 void MostraOperacao(Operacao* operacao) {
 	if (operacao != NULL)
 	{
-		printf("----------------\nOperacao com Id= %d\n", operacao->id);
+		printf("----------------\nOperacao com Id= %d\n\n  Maquinas associadas:", operacao->id);
+
 	}
 }
 
-/*---------Mostra uma maquina x--------------*/
+
+/**
+ * Mostra uma maquina x.
+ * 
+ * \param listaMaquinas
+ */
 void MostrarMaquina(Maquina* listaMaquinas) {
 	if (listaMaquinas != NULL)
 	{
-		printf("\n\n Maquina com ID: %d\n", listaMaquinas->id);
-		printf("\n Tempo de tarefa: %d\n", listaMaquinas->tempoTarefa);
+		printf("\n\n    Maquina com ID: %d", listaMaquinas->id);
+		printf("\n      Tempo de tarefa: %d\n", listaMaquinas->tempoTarefa);
 	}
 }
 
-/*---------Mostra a lista de maquinas de uma operacao--------------*/
+/**
+ * Mostra lista de maquinas de uma operacao.
+ * 
+ * \param headerDaLista
+ */
 void MostrarListaMaquinas(Maquina* headerDaLista){
 
 		Maquina* aux = headerDaLista;
@@ -301,6 +392,36 @@ void MostrarListaMaquinas(Maquina* headerDaLista){
 			MostrarMaquina(aux);
 			aux = aux->next;
 		}
+}
+
+/**
+ * Escreve em ficheiro a lista de operacoes em binario.
+ * 
+ * \param headerListaOperacao
+ * \return true se conseguiu escrever , false se nao conseguiu
+ */
+bool GravarOperacoes(Operacao* headerListaOperacao) {
+	FILE* file;
+
+	if (headerListaOperacao == NULL) return false;
+
+	if ((file = fopen("operacoes.bin", "wb")) == NULL) {
+		return false;
+	}
+	Operacao* auxOperacoes = headerListaOperacao;
+	Operacao* nextOperacoes;
+	while (auxOperacoes != NULL) {
+		nextOperacoes = auxOperacoes->next;
+		auxOperacoes->next = NULL;
+		fseek(file, 0, SEEK_END);
+		fwrite(auxOperacoes, sizeof(Operacao), 1, file);
+		auxOperacoes = nextOperacoes;
+		nextOperacoes = NULL;
+	}
+	fclose(file);
+	file = NULL;
+
+	return true;
 }
 
 #pragma endregion

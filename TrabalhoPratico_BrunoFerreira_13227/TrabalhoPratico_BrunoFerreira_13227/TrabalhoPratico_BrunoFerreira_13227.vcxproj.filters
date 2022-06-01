@@ -29,5 +29,11 @@
     <ClCompile Include="FuncoesMaquinas.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FuncoesJob.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FuncoesHashTable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
